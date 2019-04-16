@@ -13,7 +13,7 @@ Specifications:
    * A POST routes `/api/friends`. This is used to handle incoming survey results. This route is also used to handle the compatibility logic.
 5. The application's json data is saved inside of `app/data/friends.js` as an array of objects, like this:
 {
-  "name":"Ahmed",
+  "name":"Bill",
   "photo":"https://www.fillmurray.com/200/300",
   "scores":[
       5,
