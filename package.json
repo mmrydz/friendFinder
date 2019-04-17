@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/mmrydz/friendfinder/issues"
   },
-  "homepage": "https://github.com/mmrydz/friendfinder#readme"
+  "homepage": "https://github.com/mmrydz/friendfinder#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
