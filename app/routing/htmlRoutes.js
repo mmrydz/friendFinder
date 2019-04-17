@@ -10,12 +10,9 @@ var path = require("path");
 
 module.exports = function(app) {
   // This function passes in the app (Express).
-  // When the user arrives at the url /survey, the file survey.html is delivered
+  // When the user arrives at the url /survey, the file survey.html is delivered.
+  // If any other url is entered, it redirects the user to the home page.
   // ---------------------------------------------------------------------------
-
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + "/../public/home.html"));
-  });
 
   app.get("/survey", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/survey.html"));

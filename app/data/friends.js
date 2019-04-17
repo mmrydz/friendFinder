@@ -1,4 +1,4 @@
-var friends = [
+var friendsArray = [
 
     {
         name: "Mark",
@@ -254,4 +254,7 @@ var friends = [
             "2"
         ]
     }
-]
+];
+
+// The following makes the array accessible to other jsfiles using require.
+module.exports = friendsArray;

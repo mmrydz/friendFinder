@@ -21,15 +21,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
 
 </head>
 
 <body>
 
     <div class="container">
-
-        <h2>Survey Questions</h2>
+        <div class="jumbotron">
+            <h1 class="text-center"><span class="fa fa-facebook-square" aria-hidden="true"></span> Friend Finder Survey</h1>
+            <hr>
+            <div class="text-center">
+                <a href="/"><button type="button" class="btn btn-lg btn-default"><span
+                            class="fa fa-home"></span></button></a>
+            </div>
+        </div>
         <br>
 
         <h3><strong>About You</strong></h3>
@@ -50,6 +56,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 2</strong></h3>
         <h4>I am a dog person.</h4>
@@ -61,6 +69,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 3</strong></h3>
         <h4>I prefer to read physical books (not books on tablet).</h4>
@@ -72,6 +82,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 4</strong></h3>
         <h4>I am a morning person.</h4>
@@ -83,6 +95,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 5</strong></h3>
         <h4>I am an extrovert.</h4>
@@ -94,6 +108,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 6</strong></h3>
         <h4>I enjoy my alone-time.</h4>
@@ -105,6 +121,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>        
+        <br>
 
         <h3><strong>Question 7</strong></h3>
         <h4>I like to sing in the shower.</h4>
@@ -116,6 +134,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 8</strong></h3>
         <h4>I am extremely tidy.</h4>
@@ -127,6 +147,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 9</strong></h3>
         <h4>I am very organized.</h4>
@@ -138,6 +160,8 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
+        <br>
+        <br>
 
         <h3><strong>Question 10</strong></h3>
         <h4>I am really laid back.</h4>
@@ -149,7 +173,11 @@
             <option value="4">4</option>
             <option value="5">5 (Strongly Agree)</option>
         </select>
-
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg bt-block" id="submit">Submit</button>
+        <br>
+        <br>
         <footer class="footer">
             <div class="container">
                 <p><a href="/api/friends">API Friends List</a> |
