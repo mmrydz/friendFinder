@@ -32,6 +32,11 @@ app.use(bodyParser.raw({type: 'application/vnd.custom-type'}));
 // parses an HTML body into a string
 app.use(bodyParser.text({type: 'text/html'}));
 
+// We require the following file and pass into it the app (Express) 
+// into the module exports function we created in the htmlRoutes.js file:
+require("./app/routing/htmlRoutes.js")(app);
+require("./app/routing/apiRoutes.js")(app);
+
 // =============================================================================
 // LISTENER
 // The below code effectively "starts" our server
