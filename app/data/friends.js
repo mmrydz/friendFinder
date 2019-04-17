@@ -256,5 +256,5 @@ var friendsArray = [
     }
 ];
 
-// The following makes the array accessible to other jsfiles using require.
+// The following makes the array accessible to other js files using require.
 module.exports = friendsArray;
