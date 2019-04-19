@@ -21,6 +21,7 @@
   "homepage": "https://github.com/mmrydz/friendfinder#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "jquery": "^3.4.0",
     "jquery-validation": "^1.19.0",
     "nodemon": "^1.18.11"
   }

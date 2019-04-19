@@ -58,11 +58,11 @@ module.exports = function (app) {
 // totalDifference and designates that person as the bestMatch.
 
     for (var i = 0; i < friends.length; i++) {
-      consolde.log(friends[i]);
+      console.log(friends[i]);
       totalDifference = 0;
 
       for (var j = 0; j < friends[i].scores[j]; j++) {
-            totalDifference += Math.abs(parsInt(userScores[j]) - parseInt(friends[i].scores[j]));
+            totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friends[i].scores[j]));
       
         if (totalDifference <= bestMatch.friendDifference) {
           bestMatch.name = friends[i].name;

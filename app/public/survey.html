@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
@@ -40,10 +40,10 @@
 
         <form action="" name="survey" id="survey" method="POST">
             <h4>Name (Required)</h4>
-            <input type="text" placeholder="your name here" name="" id="name" class="form-control" required>
+            <input type="text" placeholder="your name here" name="name" id="name" class="form-control" required>
 
             <h4>Link to Photo Image (Required)</h4>
-            <input type="text" name="" id="photo" class="form-control" placeholder="your photo url here" required>
+            <input type="text" name="photo" id="photo" class="form-control" placeholder="your photo url here" required>
 
             <br>
             <br>
@@ -179,7 +179,7 @@
                 <br>
                 <br>
                 <!----- Submit ----->
-                <button type="submit" class="btn btn-primary btn-lg bt-block" id="submit">Submit</button>
+                <button type="submit" class="submit" class="btn btn-primary btn-lg bt-block" id="submit">Submit</button>
             </div>
         </form>
         <br>
@@ -224,7 +224,7 @@
         $(".submit").on("click", function (event) {
             event.preventDefault();
             // first we validate the form to make sure all required inputs were included
-            function valdiateForm() {
+            function validateForm() {
                 // we initially assume the form is valid
                 var isValid = true;
                 // the class .form-control is assigned to the name and photo - if either is missing,
@@ -264,14 +264,14 @@
                         parseInt($("#quest_10").val()),
                     ]
                 };
-                console.log(parsInt($("#quest_1").val()));
 
                 // AJAX post the data to the friends API (userData is the req).
-                $.post("/api/friends", userData, function (data) {
+                $.post("/api/friends", userData)
+                .then(function (data) {
                     // Grab the result from the AJAX post so that the best match's name and photo are displayed.
                     $("#match-name").text(data.name);
                     $("#match-img").attr("src", data.photo);
-                    // Show the modal with the best match
+                    // Show the modal with the best match photo and name
                     $("#results-modal").modal("toggle");
                 });
             }
