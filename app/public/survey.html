@@ -264,6 +264,8 @@
                         parseInt($("#quest_10").val()),
                     ]
                 };
+                // resets the form after submit
+                $("#survey")[0].reset();
 
                 // AJAX post the data to the friends API (userData is the req).
                 $.post("/api/friends", userData)
