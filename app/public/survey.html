@@ -51,7 +51,7 @@
             <div class="form-group">
                 <h3><strong>Question 1</strong></h3>
                 <h4>I love to travel!</h4>
-                <select class="form-control" id=quest_1 required>
+                <select class="form-option" id=quest_1 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -64,7 +64,7 @@
 
                 <h3><strong>Question 2</strong></h3>
                 <h4>I am a dog person.</h4>
-                <select class="form-control" id=quest_2 required>
+                <select class="form-option" id=quest_2 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -77,7 +77,7 @@
 
                 <h3><strong>Question 3</strong></h3>
                 <h4>I prefer to read physical books (not books on tablet).</h4>
-                <select class="form-control" id=quest_3 required>
+                <select class="form-option" id=quest_3 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -90,7 +90,7 @@
 
                 <h3><strong>Question 4</strong></h3>
                 <h4>I am a morning person.</h4>
-                <select class="form-control" id=quest_4 required>
+                <select class="form-option" id=quest_4 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -103,7 +103,7 @@
 
                 <h3><strong>Question 5</strong></h3>
                 <h4>I am an extrovert.</h4>
-                <select class="form-control" id=quest_5 required>
+                <select class="form-option" id=quest_5 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -116,7 +116,7 @@
 
                 <h3><strong>Question 6</strong></h3>
                 <h4>I enjoy my alone-time.</h4>
-                <select class="form-control" id=quest_6 required>
+                <select class="form-option" id=quest_6 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -129,7 +129,7 @@
 
                 <h3><strong>Question 7</strong></h3>
                 <h4>I like to sing in the shower.</h4>
-                <select class="form-control" id=quest_7 required>
+                <select class="form-option" id=quest_7 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -142,7 +142,7 @@
 
                 <h3><strong>Question 8</strong></h3>
                 <h4>I am extremely tidy.</h4>
-                <select class="form-control" id=quest_8 required>
+                <select class="form-option" id=quest_8 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -155,7 +155,7 @@
 
                 <h3><strong>Question 9</strong></h3>
                 <h4>I am very organized.</h4>
-                <select class="form-control" id=quest_9 required>
+                <select class="form-option" id=quest_9 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -168,7 +168,7 @@
 
                 <h3><strong>Question 10</strong></h3>
                 <h4>I am really laid back.</h4>
-                <select class="form-control" id=quest_10 required>
+                <select class="form-option" id=quest_10 required>
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -193,28 +193,27 @@
 
     </div>
 
-    <!---------------  Modal, Javascript, etc ------------------------------>
-
     <!-- Modal -->
-    <div id="results-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
+    <div class="modal fade" id="results-modal" tabindex="-1" role="dialog" aria-labelledby="best" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><strong>Best Friend</strong></h2>
+                    <h5 class="modal-title" id="bestMatch">Best Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <h2 id="match-name"></h2>
                     <img id="match-img" src="https://fillmurray.com/200/300" alt="" width="200" height="200">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <!---------------  Javascript ------------------------------>
 
     <script type="text/javascript">
         // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
@@ -223,42 +222,60 @@
         // In this case the associated code "saves" the data to the friends.js file
 
         $(".submit").on("click", function (event) {
-                event.preventDefault();
+            event.preventDefault();
+            // first we validate the form to make sure all required inputs were included
+            function valdiateForm() {
+                // we initially assume the form is valid
+                var isValid = true;
+                // the class .form-control is assigned to the name and photo - if either is missing,
+                // the form is not valid
+                $(".form-control").each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+                // the questions have the class .form-option -- if any of these are missing
+                // the form is not valid
+                $(".form-option").each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+                // if nothing was missing, the form isValid
+                return isValid;
+            };
 
-                // Here we grab the user data inputs
+            // So, if the form is valid,
+            if (validateForm()) {
+                // We create an object, userData, and save the user's inputs to it
                 var userData = {
                     name: $("#name").val().trim(),
                     photo: $("#photo").val().trim(),
                     scores: [
-                        $("#quest_1").val(),
-                        $("#quest_2").val(),
-                        $("#quest_3").val(),
-                        $("#quest_4").val(),
-                        $("#quest_5").val(),
-                        $("#quest_6").val(),
-                        $("#quest_7").val(),
-                        $("#quest_8").val(),
-                        $("#quest_9").val(),
-                        $("#quest_10").val(),
+                        parseInt($("#quest_1").val()),
+                        parseInt($("#quest_2").val()),
+                        parseInt($("#quest_3").val()),
+                        parseInt($("#quest_4").val()),
+                        parseInt($("#quest_5").val()),
+                        parseInt($("#quest_6").val()),
+                        parseInt($("#quest_7").val()),
+                        parseInt($("#quest_8").val()),
+                        parseInt($("#quest_9").val()),
+                        parseInt($("#quest_10").val()),
                     ]
                 };
+                console.log(parsInt($("#quest_1").val()));
 
-                // AJAX post the data to the friends API.
-                $.post("/api/friends", userData, function (err, data) {
-                    if (err) {
-                        throw err;
-                    alert("Please fill out all fields before submitting!");
-                } else {
+                // AJAX post the data to the friends API (userData is the req).
+                $.post("/api/friends", userData, function (data) {
                     // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-                    $("#name").text(data.name);
-                    $("#photo").attr("src", data.photo);
+                    $("#match-name").text(data.name);
+                    $("#match-img").attr("src", data.photo);
                     // Show the modal with the best match
                     $("#results-modal").modal("toggle");
-                };
-            });
+                });
+            }
         });
     </script>
-
 </body>
-
 </html>

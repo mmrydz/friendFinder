@@ -3,7 +3,7 @@
 // We are linking our routes to a series of "data" sources.
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
-var friendsData = require("../data/friends");
+var friends = require("../data/friends.js");
 
 // ===============================================================================
 // ROUTING
@@ -13,10 +13,10 @@ module.exports = function (app) {
   //  This builds a route in order to view all friends
 
   app.get("/api/friends", function (req, res) {
-    res.json(friendsData);
+    res.json(friends);
   });
 
-  // While still inside of the module.exports, this is where all of the logic 
+  // While inside of the module.exports, this is where all of the logic 
   // behind the "most compatible friend" comes into play.
 
   // 6. The user's most compatible friend is determined as follows:
@@ -34,27 +34,45 @@ module.exports = function (app) {
   // 7. Once the current user's most compatible friend is established, that person 
   // is displayed as a modal pop-up with a name and photo.
 
-  // This takes in the user's survey post data and parses it.
   app.post("/api/friends", function (req, res) {
 
-      if (friendsData.length > 0) {
-        var indexOfClosestMatch = 0;
-        var lowestDif;
-        for (i = 0; i < friendsData.length; i++) {
-          var totaDif =0;
-          for (x =0; x < friendsData[i].scores.length; x++) {
-            totalDif += Math.abs(parsInt(friendsData[i].scores[x]) - parseInt(req.body.scores[x]));
-        }
-        if (lowestDif > totalDif) {
+    var bestMatch = {
+      name: "",
+      photo: "",
+      friendDifference: 500 // we initially set this to a really high number so that
+      // a friend will likely be found in the friend database (i.e., their totalDifference
+      // will be less than this number).
+    };
 
-          lowestDif = totalDif;
-          indexOfClosestMatch = i;
+    console.log(req.body);
+    var userData = req.body;
+    var userScores = userData.scores;
+    console.log(userScores);
+    var totalDifference = 0;
+
+// The following is a nested for loop.  It has a for loop that loops 
+// through each friend's survey values (scores), checking to see the absolute difference
+// between the user's scores and the friend's scores. The absolute difference is totalled
+// (totalDifference). That for loop is wrapped in another for loop that loops through
+// all friends in the array. As it checks each friend, it takes the friend with the lowest
+// totalDifference and designates that person as the bestMatch.
+
+    for (var i = 0; i < friends.length; i++) {
+      consolde.log(friends[i]);
+      totalDifference = 0;
+
+      for (var j = 0; j < friends[i].scores[j]; j++) {
+            totalDifference += Math.abs(parsInt(userScores[j]) - parseInt(friends[i].scores[j]));
+      
+        if (totalDifference <= bestMatch.friendDifference) {
+          bestMatch.name = friends[i].name;
+          bestMatch.photo = friends[i].photo;
+          bestMatch.friendDifference = totalDifference;
         }
       }
     }
-    friendsData.push(req.body);
-
-    res.json(friendsData[indexOfClosestMatch]);
-
+    console.log(userData);
+    friends.push(userData); // We then push the userData into the friends array
+    res.json(bestMatch); // This sends the new bestMatch to the html in json format
   });
-};
+  };
